@@ -1,13 +1,6 @@
-from pyramid.config import Configurator
-from pyramid.response import Response
+def app(environ, start_response):
+    status = '200 OK'
+    response_headers = [('Content-Type', 'text/plain')]
+    start_response(status, response_headers)
+    return [b'Hello world from a simple WSGI application!\n']
 
-
-def hello_world(request):
-    return Response('Hello world from Pyramid!', content_type='text/plain')
-
-
-config = Configurator()
-config.add_route('hello', '/hello')
-config.add_view(hello_world, route_name='hello')
-
-app = config.make_wsgi_app()
